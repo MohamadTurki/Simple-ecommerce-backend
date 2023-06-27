@@ -1,9 +1,7 @@
 import bcrypt from 'bcrypt'
 import prisma from '../utils/db.js'
-import dotenv from 'dotenv';
+import generateToken from '../utils/generateJwt.js'
 import { HTTP_CODE } from '../utils/statusCodes.js'
-
-dotenv.config();
 
 async function hashPassword(password) {
   const saltRounds = parseInt(process.env.SALT_ROUNDS)
@@ -15,7 +13,9 @@ async function hashPassword(password) {
 }
 
 async function login (req, res) {
-  const {username, password} = req.body
+  // const {username, password} = req.body
+  const username = req.query.username
+  const password = req.query.password  
   const user = await prisma.user.findUnique({where: { username: username }})
   let matched_password = false
 
@@ -30,7 +30,8 @@ async function login (req, res) {
   } else if (!matched_password) {
     res.status(HTTP_CODE.UNAUTHORIZED).json("Wrong Password")
   } else {
-    res.status(HTTP_CODE.OK).json("User logged in successfully")
+    const token = generateToken(user.id)
+    res.cookie('JWT_TOKEN', token, { httpOnly: true, sameSite: 'strict', maxAge: 30 * 24 * 60 * 60 * 1000 }).json("User logged in successfully")
   }
 }
 
@@ -48,4 +49,4 @@ async function register(req, res) {
   }
 }
 
-export { login, register };
+export { login, register }

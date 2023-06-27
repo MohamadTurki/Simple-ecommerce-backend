@@ -1,7 +1,6 @@
 import prisma from '../utils/db.js'
 import { HTTP_CODE } from '../utils/statusCodes.js'
 
-
 async function getUsers (req, res) {
     let users = await prisma.user.findMany()
     res.json(users)
@@ -15,7 +14,7 @@ async function deleteUsers (req, res) {
 
 async function deleteUser (req, res) {
     try {
-        let userId = parseInt(req.params.id)
+        const userId = parseInt(req.params.id)
         await prisma.user.delete({where: { id: userId }})
         res.json("User deleted successfully")
     } catch {
@@ -23,4 +22,15 @@ async function deleteUser (req, res) {
     }
 }
 
-export { getUsers, deleteUsers, deleteUser};
+async function updateUser (req, res) {
+    try {
+        const userId = parseInt(req.params.id)
+        const username = parseInt(req.params.id)
+        await prisma.user.update({where: { id: userId }})
+        res.json("User updated successfully")
+    } catch {
+        res.status(HTTP_CODE.NOT_FOUND).json("User not found")
+    }
+}
+
+export { getUsers, deleteUsers, deleteUser, updateUser};
