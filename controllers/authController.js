@@ -13,9 +13,7 @@ async function hashPassword(password) {
 }
 
 async function login (req, res) {
-  // const {username, password} = req.body
-  const username = req.query.username
-  const password = req.query.password  
+  const { username, password } = req.body
   const user = await prisma.user.findUnique({where: { username: username }})
   let matched_password = false
 
@@ -49,4 +47,9 @@ async function register(req, res) {
   }
 }
 
-export { login, register }
+async function logout(req, res) {
+  res.cookie('JWT_TOKEN', '', {httpOnly: true, expires: new Date(0),})
+  res.status(HTTP_CODE.OK).json({ message: 'Logged out successfully' });
+}
+
+export { login, logout, register }

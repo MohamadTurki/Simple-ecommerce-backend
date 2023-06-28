@@ -2,8 +2,7 @@ import { z } from 'zod'
 import { HTTP_CODE } from '../../utils/statusCodes.js'
 
 const authValidator = (req, res, next) => {
-  const username = req.query.username;
-  const password = req.query.password;
+  const {username, password} = req.body
 
   const schema = z.object({
     username: z.string().min(1).max(50),
