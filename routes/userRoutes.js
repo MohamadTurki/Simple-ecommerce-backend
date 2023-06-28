@@ -3,10 +3,10 @@ import { getUsers, deleteUsers, deleteUser, updateUser } from '../controllers/us
 
 const router = express.Router()
 
-router.get('/api/getusers', getUsers)
-router.delete('/api/deleteusers', deleteUsers)
-router.delete('/api/deleteuser/:id', deleteUser)
-router.delete('/api/updateuser/:id', updateUser)
+router.get('/api/users/getusers', getUsers)
+router.delete('/api/users/deleteusers', deleteUsers)
+router.delete('/api/users/deleteuser/:id', deleteUser)
+router.delete('/api/users/updateuser/:id', updateUser)
 
 
 export default router

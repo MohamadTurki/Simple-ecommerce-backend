@@ -8,9 +8,9 @@ import jwtMiddleware from '../middlewares/jwtMiddleware.js';
 
 const router = express.Router()
 
-router.post('/api/login', authValidator, login)
-router.post('/api/logout', logout)
-router.post('/api/register', authValidator, register)
-router.get('/api/secret', jwtMiddleware, secret)
+router.post('/api/users/login', authValidator, login)
+router.post('/api/users/logout', logout)
+router.post('/api/users/register', authValidator, register)
+router.get('/api/users/secret', jwtMiddleware, secret)
 
 export default router

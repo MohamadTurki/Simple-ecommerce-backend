@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import productRoutes from './routes/productRoutes.js'
 import errorHandler from './middlewares/errorHandler.js'
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(express.json())
 
 app.use(authRoutes)
 app.use(userRoutes)
+app.use(productRoutes)
 
 app.use(errorHandler)
 

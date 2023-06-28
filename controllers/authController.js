@@ -48,8 +48,8 @@ async function register(req, res) {
 }
 
 async function logout(req, res) {
-  res.cookie('JWT_TOKEN', '', {httpOnly: true, expires: new Date(0),})
-  res.status(HTTP_CODE.OK).json({ message: 'Logged out successfully' });
+  res.cookie('JWT_TOKEN', '', {httpOnly: true, expires: new Date(0)})
+  res.status(HTTP_CODE.OK).json({ message: 'Logged out successfully'})
 }
 
 export { login, logout, register }
