@@ -1,10 +1,11 @@
 import express from 'express'
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
-import userRoutes from './routes/userRoutes.js'
-import authRoutes from './routes/authRoutes.js'
-import productRoutes from './routes/productRoutes.js'
-import errorHandler from './middlewares/errorHandler.js'
+import { UserController } from './controllers/userRoutes.js'
+import authRoutes from './controllers/authRoutes.js'
+import productRoutes from './controllers/productRoutes.js'
+import { errorHandler } from './middlewares/errorHandler.js'
+import 'express-async-errors'
 
 const app = express()
 
@@ -13,9 +14,11 @@ dotenv.config()
 app.use(cookieParser())
 app.use(express.json())
 
-app.use(authRoutes)
-app.use(userRoutes)
-app.use(productRoutes)
+app.use('/api', [
+  new UserController().router,
+  authRoutes,
+  productRoutes,
+])
 
 app.use(errorHandler)
 
