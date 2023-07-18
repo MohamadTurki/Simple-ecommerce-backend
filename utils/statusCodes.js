@@ -61,3 +61,23 @@ export const HTTP_CODE = {
     INSUFFICIENT_STORAGE  : 507,
     NETWORK_AUTHENTICATION_REQUIRED  : 511,
 }
+
+export class HttpResError extends Error {
+    code
+    message
+    details
+  
+    constructor(code, message, details) {
+      super()
+      this.code = code
+      this.message = message ?? HTTP_CODE[code]
+      this.details = details
+    }
+  
+    json() {
+      return {
+        message: this.message,
+        details: this.details,
+      }
+    }
+}

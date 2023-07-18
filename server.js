@@ -1,9 +1,9 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
-import { UserController } from './controllers/userRoutes.js'
-import authRoutes from './controllers/authRoutes.js'
-import productRoutes from './controllers/productRoutes.js'
+import { UserController } from './controllers/user.controller.js'
+import authController from './controllers/auth.controller.js'
+import { ProductController } from './controllers/product.controller.js'
 import { errorHandler } from './middlewares/errorHandler.js'
 import 'express-async-errors'
 
@@ -16,8 +16,8 @@ app.use(express.json())
 
 app.use('/api', [
   new UserController().router,
-  authRoutes,
-  productRoutes,
+  authController,
+  new ProductController().router,
 ])
 
 app.use(errorHandler)
